@@ -1,0 +1,14 @@
+django==4.1.1.
+django-extensions==3.2.1
+
+# наступні не обов'язкові:
+flake8==5.0.4   # перевірка на відповідність PEP8
+flake8-builtins==1.5.3   # перевірка чи не перекривають назви змінних зарезервовавні назви
+flake8-import-order==0.18.1      # перевірка послідовності імпортів
+flake8-polyfill==1.0.2
+ipython==8.5.0
+pep8-naming==0.13.2
+python-dotenv==0.21.0
+
+# run in terminal: pip install --upgrade pip setuptools
+# then: pip install -r requirements.txt
