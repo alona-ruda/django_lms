@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 
 
+
 def valid_email_domains(value):
     valid_domains = ['@gmail.com', '@yahoo.com']
     for domain in valid_domains:
@@ -23,3 +24,10 @@ class ValidEmailDomain:
                 break
         else:
             raise ValidationError(f'Invalid email address. The domain <{args[0].split("@")[1]}> not valid.')
+
+
+def email_unique(value):
+    from students.models import Student
+    email_check = Student.objects.filter(email=value)
+    if email_check != None:
+        raise ValidationError(f'Email {value} is already use.')
