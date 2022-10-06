@@ -4,7 +4,7 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from faker import Faker
 
-from .validators import valid_email_domains, ValidEmailDomain
+from .validators import ValidEmailDomain, email_unique
 
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
 class Student(models.Model):
@@ -24,8 +24,7 @@ class Student(models.Model):
     birthday = models.DateField(default=date.today, null=True, blank=True)
     # birthday = models.DateField(null=True, blank=True)
     # email = models.EmailField(validators=[valid_email_domains])
-    email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST)])
-
+    email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST), email_unique])
 
 
     def __str__(self):
@@ -43,7 +42,7 @@ class Student(models.Model):
             last_name = f.last_name()
             email = f'{first_name}.{last_name}{f.random.choice(VALID_DOMAIN_LIST)}'
             birthday = f.date()
-            st = cls(first_name = first_name, last_name = last_name, birthday = birthday, email = email)
+            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email)
             try:
                 st.full_clean()
                 st.save()
