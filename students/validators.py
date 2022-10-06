@@ -26,8 +26,7 @@ class ValidEmailDomain:
             raise ValidationError(f'Invalid email address. The domain <{args[0].split("@")[1]}> not valid.')
 
 
-def email_unique(value):
+def validate_unique_email(value):
     from students.models import Student
-    email_check = Student.objects.filter(email=value)
-    if email_check != None:
+    if Student.objects.filter(email=value).exists():
         raise ValidationError(f'Email {value} is already use.')
