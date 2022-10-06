@@ -10,6 +10,8 @@ flake8-polyfill==1.0.2
 ipython==8.5.0
 pep8-naming==0.13.2
 python-dotenv==0.21.0
+webargs==8.2.0
+
 
 # run in terminal: pip install --upgrade pip setuptools
 # then: pip install -r requirements.txt
