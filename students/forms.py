@@ -32,6 +32,3 @@ class CreateStudentForm(forms.ModelForm):
         value = self.cleaned_data.get('last_name').title()
 
         return value
-
-    # def clean_phone(self):
-
