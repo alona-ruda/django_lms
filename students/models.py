@@ -29,6 +29,7 @@ class Student(models.Model):
     # birthday = models.DateField(null=True, blank=True)
     # email = models.EmailField(validators=[valid_email_domains])
     email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST), validate_unique_email])
+    phone = models.IntegerField()
 
 
     def __str__(self):
