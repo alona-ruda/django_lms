@@ -18,5 +18,6 @@ class Group(models.Model):
 
     group_description = models.TextField()
 
+
     class Meta:
         db_table = 'groups'
