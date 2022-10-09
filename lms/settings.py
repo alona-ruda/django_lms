@@ -46,6 +46,8 @@ INSTALLED_APPS = [
 
     'students.apps.StudentsConfig',
     'groups.apps.GroupsConfig',
+
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [
@@ -63,7 +65,7 @@ ROOT_URLCONF = 'lms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,6 +121,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+# PHONENUMBER_DB_FORMAT = 'E164'
+# PHONENUMBER_DEFAULT_REGION = 'UA' # eg: 'BN'
 
 
 # Static files (CSS, JavaScript, Images)
