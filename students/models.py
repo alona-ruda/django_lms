@@ -5,10 +5,9 @@ from faker import Faker
 # from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
-
-from .validators import ValidEmailDomain, validate_unique_email
-
+from .validators import ValidEmailDomain, validate_unique_email, validate_phone_number
 
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
 class Student(models.Model):
@@ -29,6 +28,18 @@ class Student(models.Model):
     # birthday = models.DateField(null=True, blank=True)
     # email = models.EmailField(validators=[valid_email_domains])
     email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST), validate_unique_email])
+    phone = models.CharField(
+        max_length=13,
+        null=True,
+        blank=True,
+        validators=[validate_phone_number]
+    )
+
+    # phone = PhoneNumberField(
+    #     null=True,
+    #     blank=True,
+    #     validators=[validate_phone_number]
+    # )
 
 
     def __str__(self):
