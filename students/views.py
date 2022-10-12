@@ -37,7 +37,7 @@ def get_students(request, args):
         request=request,
         template_name='students/list.html',
         context={
-            'title': 'List of students',
+            'title': 'List of teachers',
             'students': students
         }
     )
@@ -56,7 +56,7 @@ def create_student(request):
         form = CreateStudentForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/students/')
+            return HttpResponseRedirect('/teachers/')
 
     token = get_token(request)
     html_form = f'''
@@ -81,7 +81,7 @@ def update_student(request, student_id):
         form = UpdateStudentForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/students/')
+            return HttpResponseRedirect('/teachers/')
 
     token = get_token(request)
     html_form = f'''

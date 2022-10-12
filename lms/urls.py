@@ -16,11 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from groups.views import create_group
+from groups.views import get_groups
+from groups.views import update_group
+from groups.views import detail_group
+
 from students.views import create_student
 from students.views import detail_student
 from students.views import get_students
 from students.views import index
 from students.views import update_student
+
+from teachers.views import create_teacher
+from teachers.views import get_teachers
+from teachers.views import update_teacher
+from teachers.views import detail_teacher
 
 # CRUD Create, Read, Update, Delete
 
@@ -30,5 +40,13 @@ urlpatterns = [
     path('students/create/', create_student),                           # Create
     path('students/', get_students),
     path('students/detail/<int:student_id>/', detail_student),          # Read
-    path('students/update/<int:student_id>/', update_student)           # Update
+    path('students/update/<int:student_id>/', update_student),          # Update
+    path('groups/', get_groups),
+    path('groups/create/', create_group),
+    path('groups/update/<int:group_id>/', update_group),
+    path('groups/detail/<int:group_id>/', detail_group),
+    path('teachers/', get_teachers),
+    path('teachers/create/', create_teacher),
+    path('teachers/update/<int:teacher_id>/', update_teacher),
+    path('teachers/detail/<int:teacher_id>/', detail_teacher),
 ]

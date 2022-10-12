@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>LMS - {{ title }}</title>
 </head>
 <body>
-
+    <form method="get">
+        <label for="fname">Group:</label>
+        <input type="text" id="fname" name="name_of_group" placeholder="A35"><br><br>
+{#        <label for="lname">Start date:</label>#}
+{#        <input type="date" id="lname" name="start_date" placeholder="YYYY-MM-DD"><br><br>#}
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <a href="create/">Create new group</a>
+    <br><br>
+    <table>
+    {% for group in groups %}
+        <tr>
+            <td>{{ group.pk }}</td>
+            <td><a href="detail/{{ group.pk }}/">{{ group.name_of_group }}</a> </td>
+            <td>{{ group.start_date }}</td>
+            <td><a href="update/{{ group.pk }}/">Edit</td>
+        </tr>
+    {% endfor %}
+    </table>
 </body>
 </html>
