@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
     <title>LMS - {{ title }}</title>
-</head>
-<body>
     <form method="get">
         <label for="fname">Group:</label>
         <input type="text" id="fname" name="name_of_group" placeholder="A35"><br><br>
@@ -19,11 +18,11 @@
     {% for group in groups %}
         <tr>
             <td>{{ group.pk }}</td>
-            <td><a href="detail/{{ group.pk }}/">{{ group.name_of_group }}</a> </td>
+            <td><a href="{% url 'groups:detail' group.pk %}/">{{ group.name_of_group }}</a></td>
             <td>{{ group.start_date }}</td>
-            <td><a href="update/{{ group.pk }}/">Edit</td>
+            <td><a href="{% url 'groups:update' group.pk %}/">Edit</a></td>
+            <td><a href="{% url 'groups:delete' group.pk %}/">Delete</a></td>
         </tr>
     {% endfor %}
     </table>
-</body>
-</html>
+{% endblock %}

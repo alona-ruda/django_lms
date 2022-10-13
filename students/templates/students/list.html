@@ -18,7 +18,7 @@
             <td>{{ student.pk }}</td>
             <td><a href="{% url 'student:detail' student.pk %}">{{ student.first_name }}</a></td>
             <td>{{ student.last_name }}</td>            <td>{{ student.last_name }}</td>
-          <td><a href="{% url 'student:update' student.pk %}">Edit</a></td>
+            <td><a href="{% url 'student:update' student.pk %}">Edit</a></td>
             <td><a href="{% url 'student:delete' student.pk %}">Delete</a></td>
         </tr>
     {% endfor %}

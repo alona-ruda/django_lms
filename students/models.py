@@ -5,7 +5,7 @@ from faker import Faker
 # from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.modelfields import PhoneNumberField
 
 from core.validators import ValidEmailDomain, validate_unique_email, validate_phone_number
 

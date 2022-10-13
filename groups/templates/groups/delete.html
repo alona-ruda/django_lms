@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete group
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <p>Do you really want to remove "{{ group.name_of_group }}"?</p>
+        <input type="submit" value="Agree">
+        <a href="{% url 'groups:list' %}">Cancel</a>
+    </form>
+{% endblock %}
