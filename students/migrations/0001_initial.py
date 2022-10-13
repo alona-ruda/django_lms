@@ -3,7 +3,7 @@
 import datetime
 import django.core.validators
 from django.db import migrations, models
-import students.validators
+import core.validators
 
 
 class Migration(migrations.Migration):
@@ -21,8 +21,8 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(max_length=100, validators=[django.core.validators.MinLengthValidator(2, '"first_name" field value less than two symbols')], verbose_name='first name')),
                 ('last_name', models.CharField(error_messages={'min_length': '"last_name" field value less than two symbols'}, max_length=100, validators=[django.core.validators.MinLengthValidator(2)], verbose_name='last name')),
                 ('birthday', models.DateField(blank=True, default=datetime.date.today, null=True)),
-                ('email', models.EmailField(max_length=254, validators=[students.validators.ValidEmailDomain('@gmail.com', '@yahoo.com', '@test.com'), students.validators.validate_unique_email])),
-                ('phone', models.CharField(blank=True, max_length=13, null=True, validators=[students.validators.validate_phone_number])),
+                ('email', models.EmailField(max_length=254, validators=[core.validators.ValidEmailDomain('@gmail.com', '@yahoo.com', '@test.com'), core.validators.validate_unique_email])),
+                ('phone', models.CharField(blank=True, max_length=13, null=True, validators=[core.validators.validate_phone_number])),
             ],
             options={
                 'db_table': 'students',

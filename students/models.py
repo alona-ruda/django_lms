@@ -7,7 +7,7 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
-from .validators import ValidEmailDomain, validate_unique_email, validate_phone_number
+from core.validators import ValidEmailDomain, validate_unique_email, validate_phone_number
 
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
 class Student(models.Model):
