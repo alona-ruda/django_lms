@@ -38,7 +38,7 @@ def get_teachers(request, args):
 
 
 def detail_teacher(request, teacher_id):
-    teacher = get_object_or_404(pk=teacher_id)
+    teacher = get_object_or_404(Teacher, pk=teacher_id)
     return render(request, 'teachers/detail.html', {'teacher': teacher})
 
 
@@ -56,7 +56,7 @@ def create_teacher(request):
 
 
 def update_teacher(request, teacher_id):
-    teacher = get_object_or_404(pk=teacher_id)
+    teacher = get_object_or_404(Teacher, pk=teacher_id)
 
     if request.method == 'GET':
         form = UpdateTeacherForm(instance=teacher)

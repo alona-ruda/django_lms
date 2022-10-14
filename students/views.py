@@ -1,10 +1,8 @@
 
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect
-from django.middleware.csrf import get_token
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-# from django.views.decorators.csrf import csrf_exempt
 
 from webargs.fields import Str
 from webargs.djangoparser import use_args
@@ -12,7 +10,6 @@ from webargs.djangoparser import use_args
 from .forms import CreateStudentForm
 from .forms import UpdateStudentForm
 from .models import Student
-# from .utils import qs2html
 
 
 @use_args(
@@ -38,6 +35,7 @@ def get_students(request, args):
             'students': students
         }
     )
+
 
 def detail_student(request, student_id):
     student = Student.objects.get(pk=student_id)

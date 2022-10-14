@@ -18,10 +18,10 @@
     {% for group in groups %}
         <tr>
             <td>{{ group.pk }}</td>
-            <td><a href="{% url 'groups:detail' group.pk %}/">{{ group.name_of_group }}</a></td>
+            <td><a href="{% url 'groups:detail' group.pk %}">{{ group.name_of_group }}</a></td>
             <td>{{ group.start_date }}</td>
-            <td><a href="{% url 'groups:update' group.pk %}/">Edit</a></td>
-            <td><a href="{% url 'groups:delete' group.pk %}/">Delete</a></td>
+            <td><a href="{% url 'groups:update' group.pk %}">Edit</a></td>
+            <td><a href="{% url 'groups:delete' group.pk %}">Delete</a></td>
         </tr>
     {% endfor %}
     </table>

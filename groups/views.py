@@ -37,7 +37,7 @@ def get_groups(request, args):
 
 
 def detail_group(request, group_id):
-    group = get_object_or_404(pk=group_id)
+    group = get_object_or_404(Group, pk=group_id)
     return render(request, 'groups/detail.html', {'group': group})
 
 
@@ -54,7 +54,7 @@ def create_group(request):
 
 
 def update_group(request, group_id):
-    group = get_object_or_404(pk=group_id)
+    group = get_object_or_404(Group, pk=group_id)
 
     if request.method == 'GET':
         form = UpdateGroupForm(instance=group)

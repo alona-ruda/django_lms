@@ -18,10 +18,10 @@
     {% for teacher in teachers %}
         <tr>
             <td>{{ teacher.pk }}</td>
-            <td><a href="{% url 'teachers:detail' teacher.pk %}/">{{ teacher.first_name }}</a> </td>
+            <td><a href="{% url 'teachers:detail' teacher.pk %}">{{ teacher.first_name }}</a> </td>
             <td>{{ teacher.last_name }}</td>
-            <td><a href="{%  url 'teachers:update' teacher.pk %}/">Edit</td>
-            <td><a href="{%  url 'teachers:delete' teacher.pk %}/">Delete</td>
+            <td><a href="{%  url 'teachers:update' teacher.pk %}">Edit</td>
+            <td><a href="{%  url 'teachers:delete' teacher.pk %}">Delete</td>
         </tr>
     {% endfor %}
     </table>
