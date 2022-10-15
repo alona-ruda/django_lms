@@ -3,8 +3,20 @@
 {% block title %}Detail of {{ group.name_of_group }}{% endblock %}
 
 {% block content %}
-<p><a href="{% url 'groups:update' group.pk %}/">{{ group.name_of_group }}</a></p>
-    <p>{{ group.start_date }}</p>
-    <p>{{ group.group_description }}</p>
-    <a href="{% url 'groups:list' %}">Back to list</a>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                <a href="{% url 'groups:update' group.pk %}">{{ group.name_of_group }}</a>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ group.start_date }}</li>
+                <li class="list-group-item">{{ group.group_description }}</li>
+            </ul>
+            <a class="btn btn-outline-primary mt-3" href="{% url 'groups:list' %}">Back to list</a>
+        </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
 {% endblock %}
