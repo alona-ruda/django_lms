@@ -1,13 +1,14 @@
 from datetime import date
 
+from dateutil.relativedelta import relativedelta
 from faker import Faker
 
 # from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
+# from phonenumber_field.modelfields import PhoneNumberField
 
-from .validators import ValidEmailDomain, validate_unique_email, validate_phone_number
+from core.validators import ValidEmailDomain, validate_unique_email, validate_phone_number
 
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
 class Student(models.Model):
@@ -44,6 +45,9 @@ class Student(models.Model):
 
     def __str__(self):
         return f'{self.pk}{self.first_name} {self.last_name}'
+
+    def get_age(self):
+        return relativedelta(date.today(), self.birthday).years
 
     class Meta:
         db_table = 'students'
