@@ -9,6 +9,7 @@ from django.db import models
 # from phonenumber_field.modelfields import PhoneNumberField
 
 from core.validators import ValidEmailDomain, validate_unique_email
+from groups.models import Group
 
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
 class Student(models.Model):
@@ -34,13 +35,9 @@ class Student(models.Model):
         null=True,
         blank=True,
     )
-
-    # phone = PhoneNumberField(
-    #     null=True,
-    #     blank=True,
-    #     validators=[validate_phone_number]
-    # )
-
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, related_name='students')
+    create_datetime = models.DateTimeField(auto_now_add=True)
+    update_datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.pk}{self.first_name} {self.last_name}'

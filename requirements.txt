@@ -1,5 +1,7 @@
-django==4.1.1.
+crispy-bootstrap5==0.7
+django==4.1.2
 django-extensions==3.2.1
+django-filter==22.1
 Faker==15.0.0
 
 # наступні не обов'язкові:
