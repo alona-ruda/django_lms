@@ -3,22 +3,28 @@ from django import forms
 from .models import Group
 
 
-class CreateGroupForm(forms.ModelForm):
+class GroupBaseForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = [
-            # '__all__'
-            'name_of_group',
+            'name',
             'start_date',
-            'group_description',
+            'end_date',
         ]
 
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'})
+        }
 
-class UpdateGroupForm(forms.ModelForm):
-    class Meta:
-        model = Group
-        fields = [
-            'name_of_group',
+
+class GroupCreateForm(GroupBaseForm):
+    class Meta(GroupBaseForm.Meta):
+        pass
+
+
+class GroupUpdateForm(GroupBaseForm):
+    class Meta(GroupBaseForm.Meta):
+        exclude = [
             'start_date',
-            'group_description',
         ]

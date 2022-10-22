@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}List of groups{% endblock %}
 
 {% block custom_css %}
     #list {
@@ -25,7 +25,7 @@
         <div class="col">
             <form method="get">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="floatingGroup" placeholder="A" name="name_of_group">
+                  <input type="text" class="form-control" id="floatingGroup" placeholder="A" name="name">
                   <label for="floatingGroup">Group</label>
                 </div>
                 <input class="btn btn-outline-primary mt-3" type="submit" value="Search">
@@ -39,7 +39,8 @@
                 <tr>
                     <th>N</th>
                     <th>Group</th>
-                    <th>Start date of group</th>
+                    <th>Start date</th>
+                    <th>End date</th>
                     <th><i class="bi bi-pencil-fill"></i></th>
                     <th><i class="bi bi-trash3-fill"></i></th>
                 </tr>
@@ -48,8 +49,9 @@
                 {% for group in groups %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td><a href="{% url 'groups:detail' group.pk %}">{{ group.name_of_group }}</a></td>
+                        <td>{{ group.name}}</td>
                         <td>{{ group.start_date }}</td>
+                        <td>{{ group.end_date }}</td>
                         <td><a class="btn btn-outline-primary btn-sm" href="{% url 'groups:update' group.pk %}">Edit</a></td>
                         <td><a class="btn btn-outline-danger btn-sm" href="{% url 'groups:delete' group.pk %}">Delete</a></td>
                     </tr>

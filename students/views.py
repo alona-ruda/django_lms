@@ -7,32 +7,35 @@ from django.urls import reverse
 from webargs.fields import Str
 from webargs.djangoparser import use_args
 
-from .forms import CreateStudentForm
+from .forms import CreateStudentForm, StudentFilterForm
 from .forms import UpdateStudentForm
 from .models import Student
 
 
-@use_args(
-    {
-        'first_name': Str(required=False),
-        'last_name': Str(required=False),
-    },
-    location='query'
-)
-def get_students(request, args):
+# @use_args(
+#     {
+#         'first_name': Str(required=False),
+#         'last_name': Str(required=False),
+#     },
+#     location='query'
+# )
+def get_students(request):
     students = Student.objects.all()
 
-    if len(args) != 0 and args.get('first_name') or args.get('last_name'):
-        students = students.filter(
-            Q(first_name=args.get('first_name', '')) | Q(last_name=args.get('last_name', ''))
-        )
+    filter_form = StudentFilterForm(data=request.GET, queryset=students)
+
+    # if len(args) != 0 and args.get('first_name') or args.get('last_name'):
+    #     students = students.filter(
+    #         Q(first_name=args.get('first_name', '')) | Q(last_name=args.get('last_name', ''))
+    #     )
 
     return render(
         request=request,
         template_name='students/list.html',
         context={
-            'title': 'List of students',
-            'students': students
+            # 'title': 'List of students',
+            # 'students': students
+            'filter_form': filter_form
         }
     )
 
@@ -51,7 +54,7 @@ def create_student(request):
         form = CreateStudentForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list'))
+            return HttpResponseRedirect(reverse('students:list'))
 
 
 
@@ -67,7 +70,7 @@ def update_student(request, student_id):
         form = UpdateStudentForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list'))
+            return HttpResponseRedirect(reverse('students:list'))
 
     return render(request, 'students/update.html', {'form': form})
 
@@ -76,7 +79,7 @@ def delete_student(request, student_id):
 
     if request.method == 'POST':
         student.delete()
-        return HttpResponseRedirect(reverse('list'))
+        return HttpResponseRedirect(reverse('students:list'))
 
     return render(request, 'students/delete.html', {'student': student})
 

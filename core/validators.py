@@ -30,11 +30,11 @@ def validate_unique_email(value):
     if Student.objects.filter(email=value).exists():
         raise ValidationError(f'Email {value} is already use.')
 
-def validate_phone_number(value):
-    symbols_for_phone = '+0123456789'
-    if len(value) != 13:
-        raise ValidationError('Lenth of phone number must be 13 sybmols.')
-    else:
-        for i in value:
-            if i not in symbols_for_phone:
-                raise ValidationError('Phone number must be entered in the format: +380001111111.')
+# def validate_phone_number(value):
+#     symbols_for_phone = '+0123456789'
+#     if len(value) != 13:
+#         raise ValidationError('Lenth of phone number must be 13 sybmols.')
+#     else:
+#         for i in value:
+#             if i not in symbols_for_phone:
+#                 raise ValidationError('Phone number must be entered in the format: +380001111111.')
