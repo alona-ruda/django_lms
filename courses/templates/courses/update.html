@@ -3,7 +3,7 @@
 {% load crispy_forms_filters %}
 
 {% block title %}
-Delete group
+Update course
 {% endblock %}
 
 {% block content %}
@@ -13,11 +13,10 @@ Delete group
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <p>Do you really want to remove "{{ group.name }}"?</p>
-                <input class="btn btn-outline-danger" type="submit" value="Agree">
-                <a class="btn btn-outline-success" href="{% url 'groups:list' %}">Cancel</a>
+                <input class="btn btn-outline-primary" type="submit" value="Update">
+                <a class="btn btn-outline-success" href="{% url 'courses:list' %}">Cancel</a>
             </form>
         </div>
         <div class="col-3"></div>
     </div>
-{% endblock %}
+ {% endblock %}

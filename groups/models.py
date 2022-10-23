@@ -19,9 +19,16 @@ class Group(models.Model):
         blank=True,
         related_name='headman_group'
     )
+    course =models.OneToOneField(
+        'courses.Course',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='course'
+    )
     create_datetime = models.DateTimeField(auto_now_add=True)
     update_datetime = models.DateTimeField(auto_now=True)
-    group_description = models.TextField()
+    # group_description = models.TextField()
 
     class Meta:
         db_table = 'groups'

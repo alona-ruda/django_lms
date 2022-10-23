@@ -8,6 +8,7 @@
             <th style="width: 55px;">Headman</th>
             {% if group_on %}
                 <th style="width: 150px;">Group</th>
+                <th style="width: 150px;">Course</th>
                 <th style="width: 85px;"><i class="bi bi-pencil-fill"></i></th>
                 <th style="width: 85px;"><i class="bi bi-trash3-fill"></i></th>
             {% endif %}
@@ -26,6 +27,7 @@
                     {% endif %}
                 {% if group_on %}
                     <td>{{ student.group.name }}</td>
+                    <td>{{ student.course.name }}</td>
                     <td align="center"><a class="btn btn-outline-primary btn-sm" href="{% url 'students:update' student.pk %}">Edit</a></td>
                     <td align="center"><a class="btn btn-outline-danger btn-sm" href="{% url 'students:delete' student.pk %}">Delete</a></td>
                 {% endif %}
