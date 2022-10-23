@@ -29,7 +29,6 @@ class Teacher(models.Model):
     def generate_fake_data(cls, cnt):
         f = Faker()
 
-
         for _ in range(cnt):
             first_name = f.first_name()
             last_name = f.last_name()

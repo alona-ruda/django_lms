@@ -21,13 +21,13 @@ def detail_group(request, group_id):
 
 
 def create_group(request):
-    if request.method == 'GET':
-        form = GroupCreateForm()
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = GroupCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list'))
+            return HttpResponseRedirect(reverse('groups:list'))
+
+    form = GroupCreateForm()
 
     return render(request, 'groups/create.html', {'form': form})
 
@@ -35,7 +35,7 @@ def create_group(request):
 def update_group(request, group_id):
     group = get_object_or_404(Group, pk=group_id)
     if request.method == 'POST':
-        form = GroupUpdateForm(instance=group, data=request.GET)
+        form = GroupUpdateForm(instance=group, data=request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('groups:list'))

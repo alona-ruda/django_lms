@@ -1,42 +1,22 @@
-
-from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-
-from webargs.fields import Str
-from webargs.djangoparser import use_args
 
 from .forms import CreateStudentForm, StudentFilterForm
 from .forms import UpdateStudentForm
 from .models import Student
 
 
-# @use_args(
-#     {
-#         'first_name': Str(required=False),
-#         'last_name': Str(required=False),
-#     },
-#     location='query'
-# )
+
 def get_students(request):
-    students = Student.objects.all()
+    students = Student.objects.select_related('group')
 
     filter_form = StudentFilterForm(data=request.GET, queryset=students)
-
-    # if len(args) != 0 and args.get('first_name') or args.get('last_name'):
-    #     students = students.filter(
-    #         Q(first_name=args.get('first_name', '')) | Q(last_name=args.get('last_name', ''))
-    #     )
 
     return render(
         request=request,
         template_name='students/list.html',
-        context={
-            # 'title': 'List of students',
-            # 'students': students
-            'filter_form': filter_form
-        }
+        context={'filter_form': filter_form}
     )
 
 

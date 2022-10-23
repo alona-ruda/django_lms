@@ -6,6 +6,8 @@ from faker import Faker
 # from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from django.db import models
+from faker.generator import random
+
 # from phonenumber_field.modelfields import PhoneNumberField
 
 from core.validators import ValidEmailDomain, validate_unique_email
@@ -40,7 +42,10 @@ class Student(models.Model):
     update_datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.pk}{self.first_name} {self.last_name}'
+        if self.group is None:
+            return f'{self.first_name} {self.last_name}'
+        else:
+            return f'{self.first_name} {self.last_name} ({self.group.name})'
 
     def get_age(self):
         return relativedelta(date.today(), self.birthday).years
@@ -57,9 +62,13 @@ class Student(models.Model):
             last_name = f.last_name()
             email = f'{first_name}.{last_name}{f.random.choice(VALID_DOMAIN_LIST)}'
             birthday = f.date()
-            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email)
+            phone = random.randint(380500000000, 380509999999)
+            group_id = '1'
+            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email, phone=phone, group_id=group_id)
             try:
                 st.full_clean()
                 st.save()
             except:
                 print('Incorrect data')
+
+
