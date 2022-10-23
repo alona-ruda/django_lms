@@ -10,7 +10,6 @@ class CreateTeacherForm(forms.ModelForm):
             'first_name',
             'last_name',
             'birthday',
-            'phone',
         ]
 
 
@@ -21,5 +20,4 @@ class UpdateTeacherForm(forms.ModelForm):
             'first_name',
             'last_name',
             'birthday',
-            'phone',
         ]
