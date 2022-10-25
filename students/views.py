@@ -1,9 +1,8 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView, CreateView, DetailView
 
-from core.views import CustomUpdateBaseView
+# from core.views import CustomUpdateBaseView
 from .forms import CreateStudentForm, StudentFilterForm
 from .forms import UpdateStudentForm
 from .models import Student
@@ -22,33 +21,22 @@ def get_students(request):
     )
 
 
-def detail_student(request, student_id):
-    student = Student.objects.get(pk=student_id)
-    return render(request, 'students/detail.html', {'student': student})
+class DetailStudentView(DetailView):
+    model = Student
+    template_name = 'students/detail.html'
 
 
-
-# @csrf_exempt
-def create_student(request):
-    if request.method == 'GET':
-        form = CreateStudentForm()
-    elif request.method == 'POST':
-        form = CreateStudentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('students:list'))
-
-
-
-    return render(request, 'students/create.html', {'form': form})
-
+class CreateStudentView(CreateView):
+    model = Student
+    success_url = reverse_lazy('students:list')
+    template_name = 'students/create.html'
+    form_class = CreateStudentForm
 
 # class CustomUpdateStudentView(CustomUpdateBaseView):
 #     model = Student
 #     form_class = UpdateStudentForm
 #     success_url = 'student:list'
 #     template_name = 'students/update.html'
-
 
 class UpdateStudentView(UpdateView):
     model = Student
@@ -57,12 +45,9 @@ class UpdateStudentView(UpdateView):
     template_name = 'students/update.html'
 
 
-def delete_student(request, student_id):
-    student = get_object_or_404(Student, pk=student_id)
+class DeleteStudentView(DeleteView):
+    model = Student
+    success_url = reverse_lazy('students:list')
+    template_name = 'students/delete.html'
 
-    if request.method == 'POST':
-        student.delete()
-        return HttpResponseRedirect(reverse('students:list'))
-
-    return render(request, 'students/delete.html', {'student': student})
 
