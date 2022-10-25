@@ -30,7 +30,17 @@ class GroupCreateForm(GroupBaseForm):
 
 
 class GroupUpdateForm(GroupBaseForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['headman_field'] = forms.ChoiceField(
+            choices=[(st.pk, f'{st.first_name} {st.last_name}') for st in self.instance.students.all()],
+            label='Headman',
+            required=False,
+        )
+        self.fields['headman_field'].choices.insert(0, (0, '--------'))
+
     class Meta(GroupBaseForm.Meta):
         exclude = [
             'start_date',
+            'headman',
         ]
