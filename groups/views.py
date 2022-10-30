@@ -26,6 +26,16 @@ class CreateGroupView(CreateView):
     template_name = 'groups/create.html'
     form_class = GroupCreateForm
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        group = form.save()
+        students = form.cleaned_data['students']
+        for student in students:
+            student.group = group
+            student.save()
+
+        return response
+
 
 class UpdateGroupView(UpdateView):
     model = Group

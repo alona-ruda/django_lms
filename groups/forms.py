@@ -13,20 +13,24 @@ class GroupBaseForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'type': 'date'})
         }
 
+        exclude = [
+            'headman'
+        ]
+
 
 class GroupCreateForm(GroupBaseForm):
-    from students.models import Student
-    # students = forms.ModelMultipleChoiceField(queryset=Student.objects.all(), required=False)
-    students = forms.ModelMultipleChoiceField(queryset=Student.objects.select_related('group'), required=False)
+    def __init__(self, *args, **kwargs):
+        from students.models import Student
+        super().__init__(*args, **kwargs)
+        self.fields['students'] = forms.ModelMultipleChoiceField(
+            queryset=Student.objects.select_related('group'),
+            required=False
+        )
 
-    def save(self, commit=True):
-        group = super().save(commit)
-        students = self.cleaned_data['students']
-        for student in students:
-            student.group = group
-            student.save()
     class Meta(GroupBaseForm.Meta):
-        pass
+        exclude = [
+            'headman'
+        ]
 
 
 class GroupUpdateForm(GroupBaseForm):
@@ -40,7 +44,7 @@ class GroupUpdateForm(GroupBaseForm):
         self.fields['headman_field'].choices.insert(0, (0, '--------'))
 
     class Meta(GroupBaseForm.Meta):
-        exclude = [
+        exclude = (
             'start_date',
-            'headman',
-        ]
+        )
+
