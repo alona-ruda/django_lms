@@ -1,12 +1,14 @@
 from datetime import datetime
 
-from django.core.validators import MinLengthValidator
 from django.db import models
+from faker import Faker
 
+from core.models import BaseModel
 from groups.validators import validate_start_date
+from teachers.models import Teacher
 
 
-class Group(models.Model):
+class Group(BaseModel):
     name = models.CharField(
         max_length=50,
     )
@@ -19,12 +21,40 @@ class Group(models.Model):
         blank=True,
         related_name='headman_group'
     )
-    create_datetime = models.DateTimeField(auto_now_add=True)
-    update_datetime = models.DateTimeField(auto_now=True)
-    group_description = models.TextField()
+    course =models.OneToOneField(
+        'courses.Course',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='course'
+    )
+    teachers = models.ManyToManyField(
+        to=Teacher,
+        null=True,
+        blank=True,
+        related_name='groups'
+    )
+
 
     class Meta:
         db_table = 'groups'
 
     def __str__(self):
         return f'Group name: <{self.name}>'
+
+    @classmethod
+    def gen_group(cls):
+        f = Faker()
+        lst = [
+            'Python',
+            'Java',
+            'PM',
+            'DevOps',
+            'Frontend',
+            'QA'
+        ]
+
+        for group in lst:
+            Group.objects.create(
+                name=group
+            )

@@ -13,7 +13,6 @@ class CreateStudentForm(forms.ModelForm):
             'last_name',
             'birthday',
             'email',
-            'phone',
         ]
 
         widgets = {
@@ -38,15 +37,7 @@ class CreateStudentForm(forms.ModelForm):
 
         return value
 
-    def clean_phone(self):
-        number = self.cleaned_data.get('phone')
-        correct_symbols = '+-()0123456789'
-        value = ''
-        for i in number:
-            if i in correct_symbols:
-                value += i
 
-        return value
 
 
 
@@ -58,7 +49,6 @@ class UpdateStudentForm(forms.ModelForm):
             'first_name',
             'last_name',
             'birthday',
-            'phone',
         ]
 
         widgets = {

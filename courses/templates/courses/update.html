@@ -3,7 +3,7 @@
 {% load crispy_forms_filters %}
 
 {% block title %}
-    Update teacher
+Update course
 {% endblock %}
 
 {% block content %}
@@ -14,9 +14,9 @@
                 {% csrf_token %}
                 {{ form|crispy }}
                 <input class="btn btn-outline-primary" type="submit" value="Update">
-                <a class="btn btn-outline-success" href="{% url 'teachers:list' %}">Cancel</a>
+                <a class="btn btn-outline-success" href="{% url 'courses:list' %}">Cancel</a>
             </form>
         </div>
         <div class="col-3"></div>
     </div>
-{% endblock %}
+ {% endblock %}

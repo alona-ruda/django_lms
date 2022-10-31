@@ -1,4 +1,5 @@
 from django import forms
+from django_filters import FilterSet
 
 from .models import Teacher
 
@@ -10,7 +11,6 @@ class CreateTeacherForm(forms.ModelForm):
             'first_name',
             'last_name',
             'birthday',
-            'phone',
         ]
 
 
@@ -21,5 +21,12 @@ class UpdateTeacherForm(forms.ModelForm):
             'first_name',
             'last_name',
             'birthday',
-            'phone',
         ]
+
+class TeacherFilterForm(FilterSet):
+    class Meta:
+        model = Teacher
+        fields = {
+            'first_name': ['exact', 'icontains'],
+            'last_name': ['exact', 'startswith']
+        }
