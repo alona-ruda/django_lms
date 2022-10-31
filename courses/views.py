@@ -1,53 +1,39 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView, DetailView, UpdateView, CreateView, ListView
 
 from .forms import CourseCreateForm, CourseUpdateForm
 from .models import Course
 
 
-def get_courses(request):
-    courses = Course.objects.all()
 
-    return render(request, 'courses/list.html', {'courses': courses})
+class ListCourseView(ListView):
+    model = Course
+    template_name = 'courses/list.html'
 
-
-def create_course(request):
-    if request.method == 'POST':
-        form = CourseCreateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('courses:list'))
-
-    form = CourseCreateForm()
-
-    return render(request, 'courses/create.html', {'form': form})
+class CreateCourseView(LoginRequiredMixin, CreateView):
+    model = Course
+    success_url = reverse_lazy('courses:list')
+    template_name = 'courses/create.html'
+    form_class = CourseCreateForm
 
 
-
-def update_course(request, course_id):
-    course = get_object_or_404(Course, pk=course_id)
-    if request.method == 'POST':
-        form = CourseUpdateForm(instance=course, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('courses:list'))
-    form = CourseUpdateForm(instance=course)
-    return render(request, 'courses/update.html', {'form': form, 'course': course})
+class UpdateCourseView(LoginRequiredMixin, UpdateView):
+    model = Course
+    form_class = CourseUpdateForm
+    success_url = reverse_lazy('courses:list')
+    template_name = 'courses/update.html'
 
 
 
-def detail_course(request, course_id):
-    course = get_object_or_404(Course, pk=course_id)
-    return render(request, 'courses/detail.html', {'course': course})
+
+class DetailCourseView(LoginRequiredMixin, DetailView):
+    model = Course
+    template_name = 'courses/detail.html'
 
 
-def delete_course(request, course_id):
-    course = get_object_or_404(Course, pk=course_id)
-
-    if request.method == 'POST':
-        course.delete()
-        return HttpResponseRedirect(reverse('list'))
-
-    return render(request, 'courses/delete.html', {'course': course})
+class DeleteCourseView(LoginRequiredMixin, DeleteView):
+    model = Course
+    success_url = reverse_lazy('courses:list')
+    template_name = 'courses/delete.html'
 

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
@@ -15,12 +16,12 @@ class ListGroupView(ListView):
     template_name = 'groups/list.html'
 
 
-class DetailGroupView(DetailView):
+class DetailGroupView(LoginRequiredMixin, DetailView):
     model = Group
     template_name = 'groups/detail.html'
 
 
-class CreateGroupView(CreateView):
+class CreateGroupView(LoginRequiredMixin, CreateView):
     model = Group
     success_url = reverse_lazy('groups:list')
     template_name = 'groups/create.html'
@@ -37,7 +38,7 @@ class CreateGroupView(CreateView):
         return response
 
 
-class UpdateGroupView(UpdateView):
+class UpdateGroupView(LoginRequiredMixin, UpdateView):
     model = Group
     form_class = GroupUpdateForm
     success_url = reverse_lazy('groups:list')
@@ -70,7 +71,7 @@ class UpdateGroupView(UpdateView):
         return response
 
 
-class DeleteGroupView(DeleteView):
+class DeleteGroupView(LoginRequiredMixin, DeleteView):
     model = Group
     success_url = reverse_lazy('groups:list')
     template_name = 'groups/delete.html'

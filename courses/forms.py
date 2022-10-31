@@ -24,8 +24,7 @@ class CourseCreateForm(CourseBaseForm):
 
     class Meta(CourseBaseForm.Meta):
         pass
-#
-#CourseUpdateForm
+
 class CourseUpdateForm(CourseBaseForm):
     pass
 #     class Meta(GroupBaseForm.Meta):

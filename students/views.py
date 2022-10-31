@@ -1,7 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import request
-from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DeleteView, CreateView, DetailView, ListView
 
 
@@ -32,6 +30,7 @@ class CreateStudentView(LoginRequiredMixin, CreateView):
     template_name = 'students/create.html'
     form_class = CreateStudentForm
 
+
 class UpdateStudentView(LoginRequiredMixin, UpdateView):
     model = Student
     form_class = UpdateStudentForm
@@ -43,5 +42,3 @@ class DeleteStudentView(LoginRequiredMixin, DeleteView):
     model = Student
     success_url = reverse_lazy('students:list')
     template_name = 'students/delete.html'
-
-
