@@ -15,7 +15,9 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserUpdateForm(UserChangeForm):
-    class Meta:
+    password = None
+
+    class Meta(UserChangeForm.Meta):
         fields = [
             'first_name',
             'last_name',
