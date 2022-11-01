@@ -28,6 +28,20 @@ class StudentAdmin(admin.ModelAdmin):
     list_per_page = 15
     # list_filter = ('group__name',)
     list_filter = (GroupListFilter, )
+    # fields = [
+    #     ('last_name', 'first_name'),
+    #     ('birthday', 'age'),
+    #     'email',
+    #     'group',
+    # ]
+
+    fieldsets = (
+        ('Personal info', {'fields': ('last_name', 'first_name')}),
+        ('Birthday', {'fields': ('birthday', 'age')}),
+        (None, {'fields': ('email',)}),
+        (None, {'fields': ('group',)}),
+    )
+
 
     def group_name(self, instance):
         if instance.group:
@@ -36,6 +50,12 @@ class StudentAdmin(admin.ModelAdmin):
         return ''
 
     group_name.short_description = 'group'
+
+    def age(self, instance):
+        return f'{instance.get_age()} y.o.'
+
+    readonly_fields = ('age',)
+    age.short_description = 'age'
 
 
 admin.site.register(Student, StudentAdmin)
